@@ -1,5 +1,7 @@
 import * as React from "react";
 import * as Immutable from "Immutable";
+import * as CityListActions from "../actions/city-list.actions";
+
 import {Store} from "Redux";
 import {AddCity} from "./AddCity";
 import {CityList} from "./CityList";
@@ -15,17 +17,22 @@ export class App extends WeatherAppComponent<{}, {}> {
                     onAdd={this.addCity.bind(this)} />
                 <CityList 
                     cities={this.store.getState()}
-                    onDelete={this.onDeleteCity.bind(this)} />
+                    onDelete={this.onDeleteCity.bind(this)}
+                    onReload={this.onReload.bind(this)} />
             </div>
         );
     }
 
     private addCity(cityName : string) {
-        this.context.store.dispatch({type: 'ADD_CITY', cityName});
+        this.context.store.dispatch(CityListActions.addCity(cityName));
     }
 
     private onDeleteCity(city: City) {
-        this.context.store.dispatch({type: 'DELETE_CITY', city});
+        this.context.store.dispatch(CityListActions.deleteCity(city));
+    }
+
+    private onReload(city: City) {
+        this.context.store.dispatch(CityListActions.reloadCity(city));
     }
 }
 

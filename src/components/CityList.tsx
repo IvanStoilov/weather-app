@@ -7,6 +7,7 @@ import {City, CityList as CityListType} from "../types";
 interface ICityListProps {
   cities: CityListType;
   onDelete?: (city: City) => any;
+  onReload?: (city: City) => any;
 }
 
 export class CityList extends React.Component<ICityListProps, {}> {
@@ -19,7 +20,8 @@ export class CityList extends React.Component<ICityListProps, {}> {
       <CityItem 
         key={city.id} 
         city={city}
-        onDelete={() => this.props.onDelete(city)} />
+        onDelete={() => this.props.onDelete(city)} 
+        onReload={() => this.props.onReload(city)}/>
     ).toJS();
 
     return (

@@ -1,20 +1,19 @@
 import {Reducer, Action, Store} from "redux";
 import {Component} from "React";
 import * as React from "React";
-import {List} from "Immutable";
+import {List, Map} from "Immutable";
 
-export interface City {
+export interface CityData {
   id: string;
   name: string;
+  isFetching: boolean;
+  imageUrl?: string;
+}
+
+export interface City extends CityData, Map<string, any> {
 };
 
 export interface CityList extends List<City> {
-}
-
-export interface CityListAction extends Action {
-    type: 'ADD_CITY'|'DELETE_CITY';
-    cityName?: string;
-    city?: City;
 }
 
 export interface CityStore extends Store<CityList> {

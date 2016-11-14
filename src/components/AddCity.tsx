@@ -16,17 +16,23 @@ export class AddCity extends React.Component<IAddCityProps, {cityName: string}> 
   render(): JSX.Element {
     return ( 
       <form onSubmit={this.handleAdd.bind(this)}>
-        <input 
-          type="text"
-          value={this.state.cityName} 
-          onChange={this.handleChange.bind(this)} />
+         <div className="item-input">
+          <input 
+            type="text"
+            value={this.state.cityName} 
+            onChange={this.handleChange.bind(this)} />
 
-        <button type="submit">Add city</button>
+          <button className="button button-fill" type="submit">Add city</button>
+        </div>
       </form>
     );
   }
 
   private handleAdd(event: Event) {
+    if (this.state.cityName === '') {
+      return ;
+    }
+
     this.props.onAdd(this.state.cityName);
     this.setState({cityName: ''});
     
