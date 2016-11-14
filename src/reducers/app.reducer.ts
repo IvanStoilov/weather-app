@@ -1,30 +1,28 @@
-import {City, CityList, CityData} from "../types";
+import {City, CityData} from "../data/city";
+import {CityList} from "../data/city-list";
 import {CityListAction} from "../actions/city-list.actions"
-import {List, Record} from "Immutable";
-import {Reducer} from "Redux";
+import {List, Record} from "immutable";
+import {Reducer} from "redux";
 
 const INITIAL_LIST = List<City>();
-
-export function createCity(data: CityData) : City {
-    const cityClass = Record(data);
-    return (new cityClass()) as City;
-}
 
 const reducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: CityListAction): CityList => {
     console.log(action)
     switch (action.type) {
         case 'ADD_CITY':
-            const newId = (Math.random() + '').substr(2);
-
-            return state.push(createCity({
-                name: action.cityName, 
-                id: `city-${newId}`,
-                isFetching: false,
-                imageUrl: null
-            }));
+            return state.push(action.city);
 
         case 'DELETE_CITY':
             return state.filterNot(city => city.id === action.city.id) as CityList;
+
+        case 'SET_CITY_PROP': 
+            return state.map((city: City) => {
+                if (city.id === action.city.id) {
+                    return city.set(action.prop, action.value);
+                }
+
+                return city;
+            }) as CityList;
 
         case 'RELOAD_CITY_INIT': 
             return state.map((city: City) => {
@@ -40,7 +38,10 @@ const reducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: Cit
                 if (city.id === action.city.id) {
                     return city
                         .set('isFetching', false)
-                        .set('imageUrl', action.response);
+                        .set('weather', {
+                            temperature: action.response.temperature,
+                            updatedAt: new Date()
+                        });
                 }
 
                 return city;

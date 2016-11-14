@@ -1,6 +1,6 @@
-import * as Immutable from "Immutable";
+import * as Immutable from "immutable";
 import * as React from "react";
-import {City} from "../types";
+import {City} from "../data/city";
 
 interface ICityItemProps {
   city: City;
@@ -16,13 +16,16 @@ export class CityItem extends React.Component<ICityItemProps, {}> {
   render() : JSX.Element {
     return (
       <div className="card">
-        <div className="card-header">{this.props.city.name}</div>
+        <div className="card-header">
+          <div className="row">
+            <div className="col-80">{this.props.city.name}</div>
+            <div className="col-20">{this.getIfNecessarySpinner()}</div>
+          </div>
+        </div>
         <div className="card-content">
           <div className="card-content-inner">
-            Sunny!
-            <p>
-              {this.getImage()}
-            </p>
+            {this.getImageIfSet()}
+            {this.getWeather()}
           </div>
         </div>
         <div className="card-footer">
@@ -33,11 +36,30 @@ export class CityItem extends React.Component<ICityItemProps, {}> {
     )
   }
 
-  private getImage() : JSX.Element {
-    if (this.props.city.isFetching) { 
-      return <img className="small-image" src="https://stanfy.com/wp-content/uploads/2015/09/1-V3h-VWthi5lL0QySF6qZPw.gif" />
-    } else if (this.props.city.imageUrl) {
+  private getImageIfSet() : JSX.Element {
+    if (this.props.city.imageUrl) {
       return <img className="small-image" src={this.props.city.imageUrl} />
+    }
+
+    return null;
+  }
+
+  private getIfNecessarySpinner() : JSX.Element {
+    if (this.props.city.isFetching) {
+      return <span>Loading...</span>
+    }
+
+    return null;
+  }
+
+  private getWeather() : JSX.Element {
+    if (this.props.city.weather) {
+      return ( 
+        <div>
+          <p>Sunny! Current temperature: {this.props.city.weather.temperature}°</p>
+          <p>Last updated: {this.props.city.weather.updatedAt.toString()}</p>
+        </div>
+      );
     }
 
     return null;

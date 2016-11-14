@@ -1,18 +1,19 @@
-import 'es6-promise';
+import './polyfills';
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
-import { City, CityStore } from "./types";
-import { List } from "Immutable";
+import { City } from "./data/city";
+import { CityStore } from "./data/city-store";
+import { List } from "immutable";
 import { Provider } from "react-redux";
 import appReducer from "./reducers/app.reducer";
-import { createEpicMiddleware } from "redux-observable";
-import { reloadCityEpic } from "./actions/city-list.actions";
+import { combineEpics, createEpicMiddleware } from "redux-observable";
+import { reloadCityEpic, addCityEpic, fetchCityImageEpic } from "./actions/city-list.actions";
 
 import { App } from "./components/App";
 
-const epicMiddleware = createEpicMiddleware(reloadCityEpic);
+const epicMiddleware = createEpicMiddleware(combineEpics(reloadCityEpic, addCityEpic, fetchCityImageEpic));
 const store : CityStore = createStore(appReducer, applyMiddleware(epicMiddleware));
 
 function render() {

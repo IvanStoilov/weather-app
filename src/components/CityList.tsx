@@ -1,8 +1,9 @@
-import * as Immutable from "Immutable";
+import * as Immutable from "immutable";
 import * as React from "react";
-import * as Redux from "Redux";
+import * as Redux from "redux";
 import {CityItem} from "./CityItem";
-import {City, CityList as CityListType} from "../types";
+import {CityList as CityListType} from "../data/city-list";
+import {City} from "../data/city";
 
 interface ICityListProps {
   cities: CityListType;
