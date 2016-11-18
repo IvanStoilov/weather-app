@@ -12,6 +12,9 @@ import { createEpicMiddleware } from "redux-observable";
 import { rootEpic } from "./epics";
 
 import { App } from "./components/App";
+import {Router, Route, Link, hashHistory, IndexRoute} from 'react-router';
+import {CityList} from "./components/CityList";
+import {AddCity} from "./components/AddCity";
 
 const epicMiddleware = createEpicMiddleware(rootEpic);
 const store : CityStore = createStore(appReducer, applyMiddleware(epicMiddleware));
@@ -19,11 +22,15 @@ const store : CityStore = createStore(appReducer, applyMiddleware(epicMiddleware
 function render() {
     ReactDOM.render(
         <Provider store={store}>
-            <App />
+            <Router history={hashHistory}>
+                <Route path="/" component={App}>
+                    <IndexRoute component={CityList} />
+                    <Route path="add" component={AddCity} />
+                </Route>
+            </Router>
         </Provider>,
         document.getElementById("root")
     );
 }
 
-store.subscribe(render);
 render();

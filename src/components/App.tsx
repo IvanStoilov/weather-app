@@ -8,6 +8,7 @@ import {CityList} from "./CityList";
 import {City} from "../data/city";
 import {CityStore} from "../data/city-store";
 import {CityStoreComponent} from "../types";
+import {Link} from "react-router";
 
 export class App extends CityStoreComponent<{}, {}> {
     private store : CityStore = this.context.store;
@@ -15,26 +16,14 @@ export class App extends CityStoreComponent<{}, {}> {
     render() : JSX.Element {
         return (
             <div>
-                <AddCity 
-                    onAdd={this.addCity.bind(this)} />
-                <CityList 
-                    cities={this.store.getState()}
-                    onDelete={this.onDeleteCity.bind(this)}
-                    onReload={this.onReload.bind(this)} />
+                <h1>The Weather App</h1>
+                <ul>
+                    <li><Link to="/">Cities list</Link></li>
+                    <li><Link to="/add">Add city</Link></li>
+                </ul>
+                {this.props.children}
             </div>
         );
-    }
-
-    private addCity(cityName : string) {
-        this.context.store.dispatch(CityListActions.addCity(cityName));
-    }
-
-    private onDeleteCity(city: City) {
-        this.context.store.dispatch(CityListActions.deleteCity(city));
-    }
-
-    private onReload(city: City) {
-        this.context.store.dispatch(CityListActions.reloadCity(city));
     }
 }
 

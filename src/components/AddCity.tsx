@@ -1,4 +1,5 @@
 import * as React from "react";
+import {addCity} from "../actions/city-list.actions";
 
 interface IAddCityProps {
   onAdd(newCityName: string): void;
@@ -33,7 +34,7 @@ export class AddCity extends React.Component<IAddCityProps, {cityName: string}> 
       return ;
     }
 
-    this.props.onAdd(this.state.cityName);
+    this.context.store.dispatch(addCity(this.state.cityName));
     this.setState({cityName: ''});
     
     event.preventDefault(); // prevent the form from submitting
@@ -42,4 +43,8 @@ export class AddCity extends React.Component<IAddCityProps, {cityName: string}> 
   private handleChange(event : KeyboardEvent) {
     this.setState({cityName: (event.target as HTMLInputElement).value});
   }
+}
+
+AddCity.contextTypes = {
+    store: React.PropTypes.object
 }

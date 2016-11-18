@@ -4,25 +4,28 @@ import * as Redux from "redux";
 import {CityItem} from "./CityItem";
 import {CityList as CityListType} from "../data/city-list";
 import {City} from "../data/city";
+import {CityStore} from "../data/city-store";
+import {deleteCity, reloadCity} from "../actions/city-list.actions";
+import {CityStoreComponent} from "../types";
 
-interface ICityListProps {
-  cities: CityListType;
-  onDelete?: (city: City) => any;
-  onReload?: (city: City) => any;
-}
+export class CityList extends CityStoreComponent<{}, {}> {
+  private store : CityStore;
 
-export class CityList extends React.Component<ICityListProps, {}> {
+  componentWillMount() {
+    this.store = this.context.store;
+  }
+
   constructor() {
     super();
   }
 
   render() : JSX.Element {
-    const cities = this.props.cities.map(city => 
+    const cities = this.store.getState().map(city => 
       <CityItem 
         key={city.id} 
         city={city}
-        onDelete={() => this.props.onDelete(city)} 
-        onReload={() => this.props.onReload(city)}/>
+        onDelete={this.onDeleteCity.bind(this, city)} 
+        onReload={this.onReload.bind(this, city)}/>
     ).toJS();
 
     return (
@@ -31,4 +34,16 @@ export class CityList extends React.Component<ICityListProps, {}> {
       </div>
     )
   }
+
+  private onDeleteCity(city: City) {
+      this.context.store.dispatch(deleteCity(city));
+  }
+
+  private onReload(city: City) {
+      this.context.store.dispatch(reloadCity(city));
+  }
+}
+
+CityList.contextTypes = {
+    store: React.PropTypes.object
 }
