@@ -1,11 +1,8 @@
 import * as React from "react";
 import {addCity} from "../actions/city-list.actions";
+import {CityStoreComponent} from "../types";
 
-interface IAddCityProps {
-  onAdd(newCityName: string): void;
-}
-
-export class AddCity extends React.Component<IAddCityProps, {cityName: string}> {
+export class AddCity extends CityStoreComponent<{}, {cityName: string}> {
   constructor() {
     super();
   }

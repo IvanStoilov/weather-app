@@ -9,19 +9,22 @@ import {City} from "../data/city";
 import {CityStore} from "../data/city-store";
 import {CityStoreComponent} from "../types";
 import {Link} from "react-router";
+import {Navbar} from "../components/Navbar";
 
 export class App extends CityStoreComponent<{}, {}> {
     private store : CityStore = this.context.store;
 
     render() : JSX.Element {
         return (
-            <div>
-                <h1>The Weather App</h1>
-                <ul>
-                    <li><Link to="/">Cities list</Link></li>
-                    <li><Link to="/add">Add city</Link></li>
-                </ul>
-                {this.props.children}
+            <div className="view view-main">
+                <Navbar />
+                <div className="pages navbar-through toolbar-through">
+                    <div data-page="index" className="page">
+                        <div className="page-content">
+                            {this.props.children}
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
