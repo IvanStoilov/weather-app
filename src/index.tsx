@@ -8,12 +8,12 @@ import { CityStore } from "./data/city-store";
 import { List } from "immutable";
 import { Provider } from "react-redux";
 import appReducer from "./reducers/app.reducer";
-import { combineEpics, createEpicMiddleware } from "redux-observable";
-import { reloadCityEpic, addCityEpic, fetchCityImageEpic } from "./actions/city-list.actions";
+import { createEpicMiddleware } from "redux-observable";
+import { rootEpic } from "./epics";
 
 import { App } from "./components/App";
 
-const epicMiddleware = createEpicMiddleware(combineEpics(reloadCityEpic, addCityEpic, fetchCityImageEpic));
+const epicMiddleware = createEpicMiddleware(rootEpic);
 const store : CityStore = createStore(appReducer, applyMiddleware(epicMiddleware));
 
 function render() {
