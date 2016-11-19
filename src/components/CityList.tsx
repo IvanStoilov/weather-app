@@ -13,6 +13,7 @@ export class CityList extends CityStoreComponent<{}, {}> {
 
   componentWillMount() {
     this.store = this.context.store;
+    this.context.store.subscribe(() => this.forceUpdate());
   }
 
   constructor() {
@@ -25,7 +26,7 @@ export class CityList extends CityStoreComponent<{}, {}> {
         key={city.id} 
         city={city}
         onDelete={this.onDeleteCity.bind(this, city)} 
-        onReload={this.onReload.bind(this, city)}/>
+        onReload={this.onReload.bind(this, city)} />
     ).toJS();
 
     return (

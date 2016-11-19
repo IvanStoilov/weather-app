@@ -11,13 +11,10 @@ export const reloadCityEpic : Epic<CityListAction> = (action$ : ActionsObservabl
   return action$
     .ofType('RELOAD_CITY_INIT')
     .switchMap((action: ReloadCityAction) => {
-      const url = `http://127.0.0.1:8000/forecast.json?city=${action.city.name}`;
+      const url = `https://api.apixu.com/v1/forecast.json?key=04d1840631404d7ba90153829161511&q=${action.city.name}`;
 
       return Observable.fromPromise(fetch(url))
         .switchMap(result => result.json()) 
-        .map((result: Forecast) => {
-          console.log(result);
-          return reloadCityDone(action.city, {temperature: result.current.temp_c})
-        })
+        .map((result: Forecast) => reloadCityDone(action.city, {temperature: result.current.temp_c}))
     });
 }
