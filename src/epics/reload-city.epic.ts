@@ -15,6 +15,6 @@ export const reloadCityEpic : Epic<CityListAction> = (action$ : ActionsObservabl
 
       return Observable.fromPromise(fetch(url))
         .switchMap(result => result.json()) 
-        .map((result: Forecast) => reloadCityDone(action.city, {temperature: result.current.temp_c}))
+        .map((result: Forecast) => reloadCityDone(action.city, result))
     });
 }

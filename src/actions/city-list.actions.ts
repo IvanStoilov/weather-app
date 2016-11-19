@@ -1,4 +1,5 @@
 import {ICity, City} from "../data/city";
+import {Forecast} from "../custom-typings/forecast";
 
 // Declaration
 
@@ -16,7 +17,7 @@ export interface FetchCityImageAction extends CityAction<'FETCH_CITY_IMAGE'> {}
 export interface FetchCityImageActionDone extends CityAction<'FETCH_CITY_IMAGE_DONE'> {}
 export interface ReloadCityAction extends CityAction<'RELOAD_CITY_INIT'> {}
 export interface ReloadCityDoneAction extends CityAction<'RELOAD_CITY_DONE'> {
-  response: { temperature: number };
+  response: Forecast;
 }
 export interface SetCityPropAction extends CityAction<'SET_CITY_PROP'> {
   prop: string;
@@ -36,8 +37,7 @@ export function addCity(cityName: string) : AddCityAction {
     name: cityName, 
     isFetching: false,
     weather: null,
-    imageUrl: null,
-    updatedAt: new Date().toISOString()
+    imageUrl: null
   });
 
   return {
@@ -66,7 +66,7 @@ export function setCityProp(city: ICity, prop: string, value: any) : SetCityProp
   }
 }
 
-export function reloadCityDone(city: ICity, response: any) : ReloadCityDoneAction {
+export function reloadCityDone(city: ICity, response: Forecast) : ReloadCityDoneAction {
   return {
     type: 'RELOAD_CITY_DONE',
     city,

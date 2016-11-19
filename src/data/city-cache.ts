@@ -10,7 +10,7 @@ export class CityCache {
 
     static getAllCities() : CityList {
         const cityNames = lscache.get(this.allCitiesKey()) || [];
-        const cities : City[] = cityNames.map(cityName => this.getCity(cityName));
+        const cities : City[] = cityNames.map((cityName: string) => this.getCity(cityName));
         return List.of.apply(List, cities);
     }
 

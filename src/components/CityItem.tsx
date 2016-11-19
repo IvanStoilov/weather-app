@@ -53,10 +53,10 @@ export class CityItem extends React.Component<ICityItemProps, {}> {
   }
 
   private getWeather() : JSX.Element {
-    if (this.props.city.weather) {
+    if (this.props.city.weather && this.props.city.weather.forecast) {
       return ( 
         <div>
-          <p>Sunny! Current temperature: {this.props.city.weather.temperature}°</p>
+          <p>{this.props.city.weather.forecast.current.condition}, {this.props.city.weather.forecast.current.temp_c}°</p>
           <p>Last updated: {this.props.city.weather.updatedAt.toString()}</p>
         </div>
       );
