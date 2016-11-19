@@ -1,19 +1,20 @@
 .page-content {
-  margin-top: 56px;
+    margin-top: 56px;
+    margin-bottom: 56px;
 }
 
 .small-image {
-  max-width: 100px;
+    max-width: 100px;
 }
 
 .home-link {
-  color: #ffffff;
+    color: #ffffff;
 }
 
 .card-header .condition-icon {
-  float: right;
+    float: right;
 }
 
 .forecast-day {
-  text-align: center;
+    text-align: center;
 }
