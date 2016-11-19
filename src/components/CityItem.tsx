@@ -74,13 +74,13 @@ export class CityItem extends React.Component<ICityItemProps, {}> {
     return null;
   }
 
-  private getForecastDays(forecastDays: Forecastday[]) : JSX.Element {
+  private getForecastDays(forecastDays: Forecastday[]) : JSX.Element[] {
     return forecastDays.map(day => this.getForecastDay(day));
   }
 
   private getForecastDay(forecastDay: Forecastday) : JSX.Element {
      return (
-         <div className="forecast-day col-20">
+         <div key={forecastDay.date} className="forecast-day col-20">
            {moment(forecastDay.date).format('MMM D')}
            <img src={forecastDay.day.condition.icon} alt=""/>
            {Math.round(forecastDay.day.mintemp_c)}° / {Math.round(forecastDay.day.maxtemp_c)}°
