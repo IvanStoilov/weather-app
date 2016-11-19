@@ -1,6 +1,4 @@
-import {Action} from "redux";
-import {City, CityData} from "../data/city";
-import {Record} from "immutable";
+import {ICity, City} from "../data/city";
 
 // Declaration
 
@@ -9,7 +7,7 @@ export interface TypedAction<T> {
 }
 
 export interface CityAction<T> extends TypedAction<T> {
-  city: City;
+  city: ICity;
 }
 
 export interface AddCityAction extends CityAction<'ADD_CITY'> {}
@@ -30,15 +28,10 @@ export type CityListAction =
 
 // Implementation
 
-export function createCity(data: CityData) : City {
-    const cityClass = Record(data);
-    return (new cityClass()) as City;
-}
-
 export function addCity(cityName: string) : AddCityAction {
   const newId = (Math.random() + '').substr(2);
   
-  const city = createCity({
+  const city = City.create({
     id: `city-${newId}`,
     name: cityName, 
     isFetching: false,
@@ -53,7 +46,7 @@ export function addCity(cityName: string) : AddCityAction {
 }
 
 function cityActionFactory(type : string) {
-  return (city: City) => ({
+  return (city: ICity) => ({
     type, 
     city
   });
@@ -63,7 +56,7 @@ export const deleteCity = cityActionFactory('DELETE_CITY');
 export const reloadCity = cityActionFactory('RELOAD_CITY_INIT');
 export const fetchCityImage = cityActionFactory('FETCH_CITY_IMAGE');
 
-export function setCityProp(city: City, prop: string, value: any) : SetCityPropAction {
+export function setCityProp(city: ICity, prop: string, value: any) : SetCityPropAction {
   return {
     type: 'SET_CITY_PROP',
     city,
@@ -72,7 +65,7 @@ export function setCityProp(city: City, prop: string, value: any) : SetCityPropA
   }
 }
 
-export function reloadCityDone(city: City, response: any) : ReloadCityDoneAction {
+export function reloadCityDone(city: ICity, response: any) : ReloadCityDoneAction {
   return {
     type: 'RELOAD_CITY_DONE',
     city,

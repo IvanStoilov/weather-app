@@ -1,5 +1,5 @@
-import {City} from "./city"
+import {ICity} from "./city"
 import {List} from "immutable";
 
-export interface CityList extends List<City> {
+export interface CityList extends List<ICity> {
 }

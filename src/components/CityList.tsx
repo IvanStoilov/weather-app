@@ -3,10 +3,10 @@ import * as React from "react";
 import * as Redux from "redux";
 import {CityItem} from "./CityItem";
 import {CityList as CityListType} from "../data/city-list";
-import {City} from "../data/city";
+import {ICity} from "../data/city";
 import {CityStore} from "../data/city-store";
 import {deleteCity, reloadCity} from "../actions/city-list.actions";
-import {CityStoreComponent} from "../types";
+import {CityStoreComponent} from "../custom-typings/city-store-component";
 
 export class CityList extends CityStoreComponent<{}, {}> {
   private store : CityStore;
@@ -36,11 +36,11 @@ export class CityList extends CityStoreComponent<{}, {}> {
     )
   }
 
-  private onDeleteCity(city: City) {
+  private onDeleteCity(city: ICity) {
       this.context.store.dispatch(deleteCity(city));
   }
 
-  private onReload(city: City) {
+  private onReload(city: ICity) {
       this.context.store.dispatch(reloadCity(city));
   }
 }

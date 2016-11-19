@@ -1,6 +1,6 @@
 import * as React from "react";
 import {addCity} from "../actions/city-list.actions";
-import {CityStoreComponent} from "../types";
+import {CityStoreComponent} from "../custom-typings/city-store-component";
 
 export class AddCity extends CityStoreComponent<{}, {cityName: string}> {
   constructor() {

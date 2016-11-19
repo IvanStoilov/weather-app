@@ -5,9 +5,9 @@ import * as CityListActions from "../actions/city-list.actions";
 import {Store} from "redux";
 import {AddCity} from "./AddCity";
 import {CityList} from "./CityList";
-import {City} from "../data/city";
+import {ICity} from "../data/city";
 import {CityStore} from "../data/city-store";
-import {CityStoreComponent} from "../types";
+import {CityStoreComponent} from "../custom-typings/city-store-component";
 import {Link} from "react-router";
 import {Navbar} from "../components/Navbar";
 

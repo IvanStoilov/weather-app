@@ -1,10 +1,10 @@
-import {City, CityData} from "../data/city";
+import {ICity, CityData} from "../data/city";
 import {CityList} from "../data/city-list";
 import {CityListAction} from "../actions/city-list.actions"
 import {List, Record} from "immutable";
 import {Reducer} from "redux";
 
-const INITIAL_LIST = List<City>();
+const INITIAL_LIST = List<ICity>();
 
 const reducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: CityListAction): CityList => {
     console.log(action)
@@ -16,7 +16,7 @@ const reducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: Cit
             return state.filterNot(city => city.id === action.city.id) as CityList;
 
         case 'SET_CITY_PROP': 
-            return state.map((city: City) => {
+            return state.map((city: ICity) => {
                 if (city.id === action.city.id) {
                     return city.set(action.prop, action.value);
                 }
@@ -25,7 +25,7 @@ const reducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: Cit
             }) as CityList;
 
         case 'RELOAD_CITY_INIT': 
-            return state.map((city: City) => {
+            return state.map((city: ICity) => {
                 if (city.id === action.city.id) {
                     return city.set('isFetching', true);
                 }
@@ -34,13 +34,13 @@ const reducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: Cit
             }) as CityList;
             
         case 'RELOAD_CITY_DONE': 
-            return state.map((city: City) => {
+            return state.map((city: ICity) => {
                 if (city.id === action.city.id) {
                     return city
                         .set('isFetching', false)
                         .set('weather', {
                             temperature: action.response.temperature,
-                            updatedAt: new Date()
+                            updatedAt: new Date().toString()
                         });
                 }
 

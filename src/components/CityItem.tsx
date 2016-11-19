@@ -1,9 +1,9 @@
 import * as Immutable from "immutable";
 import * as React from "react";
-import {City} from "../data/city";
+import {ICity} from "../data/city";
 
 interface ICityItemProps {
-  city: City;
+  city: ICity;
   onDelete: Function;
   onReload: Function;
 }

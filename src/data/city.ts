@@ -1,4 +1,4 @@
-import {Map} from "immutable";
+import {Map, Record} from "immutable";
 
 export interface CityData {
   id: string;
@@ -7,9 +7,16 @@ export interface CityData {
   imageUrl?: string;
   weather: {
     temperature: number;
-    updatedAt: Date;
+    updatedAt: string;
   }
 }
 
-export interface City extends CityData, Map<string, any> {
+export interface ICity extends CityData, Map<string, any> {
 };
+
+export class City {
+  static create(data : CityData) : ICity {
+    const cityClass = Record(data);
+    return (new cityClass()) as ICity;
+  }
+}
