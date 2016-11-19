@@ -82,7 +82,7 @@ export class CityItem extends React.Component<ICityItemProps, {}> {
      return (
          <div key={forecastDay.date} className="forecast-day col-20">
            {moment(forecastDay.date).format('MMM D')}
-           <img src={forecastDay.day.condition.icon} alt=""/>
+           <img src={forecastDay.day.condition.icon} className="condition-icon" alt=""/>
            {Math.round(forecastDay.day.mintemp_c)}° / {Math.round(forecastDay.day.maxtemp_c)}°
          </div>
      );
