@@ -1,19 +1,22 @@
-import * as Immutable from "immutable";
 import * as React from "react";
-import * as Redux from "redux";
 import {CityItem} from "./CityItem";
-import {CityList as CityListType} from "../data/city-list";
 import {ICity} from "../data/city";
 import {CityStore} from "../data/city-store";
 import {deleteCity, reloadCity} from "../actions/city-list.actions";
 import {CityStoreComponent} from "../custom-typings/city-store-component";
+import {Unsubscribe} from "redux/index";
 
 export class CityList extends CityStoreComponent<{}, {}> {
   private store : CityStore;
+  private unsubscribe : Unsubscribe;
 
   componentWillMount() {
     this.store = this.context.store;
-    this.context.store.subscribe(() => this.forceUpdate());
+    this.unsubscribe = this.context.store.subscribe(() => this.forceUpdate());
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   constructor() {

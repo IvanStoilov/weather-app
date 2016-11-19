@@ -36,7 +36,8 @@ export function addCity(cityName: string) : AddCityAction {
     name: cityName, 
     isFetching: false,
     weather: null,
-    imageUrl: null
+    imageUrl: null,
+    updatedAt: new Date().toISOString()
   });
 
   return {

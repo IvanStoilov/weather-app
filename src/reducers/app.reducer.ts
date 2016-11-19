@@ -40,7 +40,7 @@ const reducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: Cit
                         .set('isFetching', false)
                         .set('weather', {
                             temperature: action.response.temperature,
-                            updatedAt: new Date().toString()
+                            updatedAt: new Date().toISOString()
                         });
                 }
 
