@@ -9,3 +9,11 @@
 .home-link {
   color: #ffffff;
 }
+
+.card-header .condition-icon {
+  float: right;
+}
+
+.forecast-day {
+  text-align: center;
+}

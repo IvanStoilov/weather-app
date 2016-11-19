@@ -17,6 +17,7 @@
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "lscache": "^1.0.7",
+    "moment": "^2.16.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
