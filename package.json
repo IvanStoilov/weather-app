@@ -9,9 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/es6-promise": "0.0.32",
+    "@types/isomorphic-fetch": "0.0.31",
+    "@types/lscache": "^1.0.29",
     "@types/react": "^0.14.47",
     "@types/react-dom": "^0.14.18",
     "@types/react-redux": "^4.4.32",
+    "@types/react-router": "^2.0.39",
     "es6-promise": "^4.0.5",
     "framework7": "^1.5.0",
     "immutable": "^3.8.1",
