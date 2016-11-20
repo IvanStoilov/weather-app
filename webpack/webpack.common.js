@@ -1,7 +1,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var extractCSS = new ExtractTextPlugin('[name].css');
-var extractLESS = new ExtractTextPlugin('[name]2.css');
+var extractCSS = new ExtractTextPlugin('[name].[hash].css');
+var extractLESS = new ExtractTextPlugin('[name]2.[hash].css');
 
 module.exports = {
 	entry: {
@@ -9,7 +9,7 @@ module.exports = {
 		app: "./src/index.tsx"
 	},
 	output: {
-		filename: "[name].js",
+		filename: "[name].[hash].js",
 		path: __dirname + "/../dist"
 	},
 
@@ -27,7 +27,7 @@ module.exports = {
 			{ test: /\.tsx?$/, loader: "ts-loader" },
 			{ test: /\.scss$/i, loader: extractCSS.extract(['css','sass']) },
 			{ test: /\.less$/i, loader: extractLESS.extract(['css','less']) },
-			{ test: /\.(eot|svg|ttf|woff|woff2)$/, loader: 'file?name=fonts/[name].[ext]' }
+			{ test: /\.(eot|svg|ttf|woff|woff2)$/, loader: 'file?name=fonts/[name].[hash].[ext]' }
 		],
 
 		preLoaders: [
@@ -39,7 +39,8 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: 'index.html'
+			template: 'index.html',
+			hash: true
 		}),
 		extractCSS,
 		extractLESS

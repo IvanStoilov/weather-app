@@ -15,7 +15,7 @@ export class AddCity extends CityStoreComponent<{}, {cityName: string}> {
         return (
             <div>
                 <div className="content-block-title">
-                    <label for="cityName" >Enter a city:</label>
+                    <label htmlFor="cityName">Enter a city:</label>
                 </div>
                 <form className="list-block" onSubmit={this.handleAdd.bind(this)}>
                     <ul>
