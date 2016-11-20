@@ -49,6 +49,7 @@ export class AddCity extends CityStoreComponent<{}, {cityName: string}> {
 
         this.context.store.dispatch(addCity(this.state.cityName));
         this.setState({cityName: ''});
+        this.context.router.replace('/');
 
         event.preventDefault(); // prevent the form from submitting
     }
@@ -59,5 +60,6 @@ export class AddCity extends CityStoreComponent<{}, {cityName: string}> {
 }
 
 AddCity.contextTypes = {
-    store: React.PropTypes.object
+    store: React.PropTypes.object,
+    router: React.PropTypes.object
 }
