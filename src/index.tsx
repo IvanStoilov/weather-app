@@ -11,7 +11,7 @@ import appReducer from "./reducers/app.reducer";
 import { createEpicMiddleware } from "redux-observable";
 import { rootEpic } from "./epics";
 import { App } from "./components/App";
-import {Router, Route, hashHistory, IndexRoute} from 'react-router';
+import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 import {CityList} from "./components/CityList";
 import {AddCity} from "./components/AddCity";
 import {CityCache} from "./data/city-cache";
@@ -24,7 +24,7 @@ store.subscribe(() => CityCache.setCities(store.getState()));
 function render() {
     ReactDOM.render(
         <Provider store={store}>
-            <Router history={hashHistory}>
+            <Router history={browserHistory}>
                 <Route path="/" component={App}>
                     <IndexRoute component={CityList} />
                     <Route path="add" component={AddCity} />
