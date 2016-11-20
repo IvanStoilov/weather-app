@@ -20,11 +20,11 @@ export class Navbar extends React.Component<{}, {cityName: string}> {
             </Link>
           </div>
           <div className="right">
-            <a href="javascript://">
-              <i className="icon icon-forward"></i>
+            <a href="javascript://" className="link icon-only">
+              <i className="md-icon">loop</i>
             </a>
-            <Link to="/add" className="link icon-only open-panel">
-              <i className="icon icon-plus"></i>
+            <Link to="/add" className="link icon-only">
+              <i className="md-icon">add</i>
             </Link>
           </div>
         </div>

@@ -1,4 +1,6 @@
-import './polyfills';
+import "./polyfills";
+import "./stylesheets/main.scss";
+import "./stylesheets/framework7.less";
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";

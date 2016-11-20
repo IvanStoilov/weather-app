@@ -1,7 +1,15 @@
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var extractCSS = new ExtractTextPlugin('[name].css');
+var extractLESS = new ExtractTextPlugin('[name]2.css');
+
 module.exports = {
-	entry: "./src/index.tsx",
+	entry: {
+		vendors: "./src/vendors.ts",
+		app: "./src/index.tsx"
+	},
 	output: {
-		filename: "bundle.js",
+		filename: "[name].js",
 		path: __dirname + "/../dist"
 	},
 
@@ -10,13 +18,16 @@ module.exports = {
 
 	resolve: {
 		// Add '.ts' and '.tsx' as resolvable extensions.
-		extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+		extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".scss"]
 	},
 
 	module: {
 		loaders: [
 			// All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
-			{ test: /\.tsx?$/, loader: "ts-loader" }
+			{ test: /\.tsx?$/, loader: "ts-loader" },
+			{ test: /\.scss$/i, loader: extractCSS.extract(['css','sass']) },
+			{ test: /\.less$/i, loader: extractLESS.extract(['css','less']) },
+			{ test: /\.(eot|svg|ttf|woff|woff2)$/, loader: 'file?name=fonts/[name].[ext]' }
 		],
 
 		preLoaders: [
@@ -26,6 +37,12 @@ module.exports = {
 	},
 
 	plugins: [
+		new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: 'index.html'
+		}),
+		extractCSS,
+		extractLESS
 	],
 
 	// When importing a module whose path matches one of the following, just
