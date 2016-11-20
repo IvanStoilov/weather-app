@@ -35,7 +35,7 @@ export class AddCity extends CityStoreComponent<{}, {cityName: string}> {
                     </ul>
 
                     <p className="content-block">
-                        <a className="button button-fill" type="submit">Add city</a>
+                        <button className="button button-fill" type="submit">Add city</button>
                     </p>
                 </form>
             </div>
