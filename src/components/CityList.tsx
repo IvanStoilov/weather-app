@@ -5,47 +5,57 @@ import {CityStore} from "../data/city-store";
 import {deleteCity, reloadCity} from "../actions/city-list.actions";
 import {CityStoreComponent} from "../custom-typings/city-store-component";
 import {Unsubscribe} from "redux/index";
+import {Link} from "react-router";
 
 export class CityList extends CityStoreComponent<{}, {}> {
-  private store : CityStore;
-  private unsubscribe : Unsubscribe;
+    private store : CityStore;
+    private unsubscribe : Unsubscribe;
 
-  componentWillMount() {
-    this.store = this.context.store;
-    this.unsubscribe = this.context.store.subscribe(() => this.forceUpdate());
-  }
+    componentWillMount() {
+        this.store = this.context.store;
+        this.unsubscribe = this.context.store.subscribe(() => this.forceUpdate());
+    }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
 
-  constructor() {
-    super();
-  }
+    constructor() {
+        super();
+    }
 
-  render() : JSX.Element {
-    const cities = this.store.getState().map(city => 
-      <CityItem 
-        key={city.id} 
-        city={city}
-        onDelete={this.onDeleteCity.bind(this, city)} 
-        onReload={this.onReload.bind(this, city)} />
-    ).toJS();
+    render() : JSX.Element {
+        const cities = this.store.getState().map(city =>
+            <CityItem
+                key={city.id}
+                city={city}
+                onDelete={this.onDeleteCity.bind(this, city)}
+                onReload={this.onReload.bind(this, city)} />
+        ).toJS();
 
-    return (
-      <div>
-        {cities}
-      </div>
-    )
-  }
+        return (
+            <div>
+                {cities.length ? cities : this.getEmptyState()}
+            </div>
+        )
+    }
 
-  private onDeleteCity(city: ICity) {
-      this.context.store.dispatch(deleteCity(city));
-  }
+    private getEmptyState() : JSX.Element {
+        return (
+            <div className="content-block">
+                <p>Great to see you here! Let's start by adding your city</p>
+                <Link to="/add" className="button button-fill">Add your first city</Link>
+            </div>
+        );
+    }
 
-  private onReload(city: ICity) {
-      this.context.store.dispatch(reloadCity(city));
-  }
+    private onDeleteCity(city: ICity) {
+        this.context.store.dispatch(deleteCity(city));
+    }
+
+    private onReload(city: ICity) {
+        this.context.store.dispatch(reloadCity(city));
+    }
 }
 
 CityList.contextTypes = {

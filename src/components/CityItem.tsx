@@ -25,7 +25,7 @@ export class CityItem extends React.Component<ICityItemProps, {}> {
               {this.getIfNecessarySpinner()}
             </div>
             <div className="col-33">
-              <img className="condition-icon" src={this.getCurrentConditionIcon()} />
+              {this.getCurrentConditionIcon()}
             </div>
         </div>
         <div className="card-content">
@@ -98,7 +98,7 @@ export class CityItem extends React.Component<ICityItemProps, {}> {
 
     private getCurrentConditionIcon() : JSX.Element {
         if (this.getForecast()) {
-            return this.getForecast().current.condition.icon;
+            return <img className="condition-icon" src={this.getForecast().current.condition.icon} />;
         }
 
         return null;
