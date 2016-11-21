@@ -2,6 +2,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var extractCSS = new ExtractTextPlugin('[name].[hash].css');
 var extractLESS = new ExtractTextPlugin('[name]2.[hash].css');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var path = require('path');
 
 module.exports = {
 	entry: {
@@ -10,7 +13,7 @@ module.exports = {
 	},
 	output: {
 		filename: "[name].[hash].js",
-		path: __dirname + "/../dist"
+		path: path.join(__dirname, '..', 'dist')
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
@@ -37,11 +40,19 @@ module.exports = {
 	},
 
 	plugins: [
+		new CleanWebpackPlugin(['dist'], {
+			root: path.join(__dirname, '..')
+		}),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
 			template: 'index.html',
 			hash: true
 		}),
+		new CopyWebpackPlugin([
+			{ from: 'src/manifest.json' },
+			{ from: 'src/service-worker.js' },
+			{ from: 'public' },
+		]),
 		extractCSS,
 		extractLESS
 	],
