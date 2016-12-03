@@ -98,7 +98,9 @@ export class CityItem extends React.Component<ICityItemProps, {}> {
 
     private getCurrentConditionIcon() : JSX.Element {
         if (this.getForecast()) {
-            return <img className="condition-icon" src={this.getForecast().current.condition.icon} />;
+            return <span>
+                {Math.round(this.getForecast().current.temp_c)}° <img className="condition-icon" src={this.getForecast().current.condition.icon} />
+                </span>;
         }
 
         return null;

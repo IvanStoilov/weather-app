@@ -50,6 +50,7 @@ module.exports = {
 		}),
 		new CopyWebpackPlugin([
 			{ from: 'src/manifest.json' },
+			{ from: 'forecast.json' },
 			{ from: 'src/service-worker.js' },
 			{ from: 'public' },
 		]),
