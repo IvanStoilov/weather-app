@@ -4,8 +4,8 @@ import "./stylesheets/framework7.less";
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { createStore, applyMiddleware } from "redux";
-import { CityStore } from "./data/city-store";
+import { createStore, applyMiddleware, combineReducers } from "redux";
+import { AppStore } from "./data/city-store";
 import { Provider } from "react-redux";
 import appReducer from "./reducers/app.reducer";
 import { createEpicMiddleware } from "redux-observable";
@@ -17,9 +17,16 @@ import {AddCity} from "./components/AddCity";
 import {CityCache} from "./data/city-cache";
 
 const epicMiddleware = createEpicMiddleware(rootEpic);
-const store : CityStore = createStore(appReducer, CityCache.getAllCities(), applyMiddleware(epicMiddleware));
+const reducers = combineReducers({
+    cities: appReducer
+});
+const initialState = {
+    cities: CityCache.getAllCities()
+};
 
-store.subscribe(() => CityCache.setCities(store.getState()));
+const store : AppStore = createStore(reducers, initialState, applyMiddleware(epicMiddleware)) as AppStore;
+
+store.subscribe(() => CityCache.setCities(store.getState().cities));
 
 function render() {
     ReactDOM.render(

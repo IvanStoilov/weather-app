@@ -1,14 +1,14 @@
 import * as React from "react";
 import {CityItem} from "./CityItem";
 import {ICity} from "../data/city";
-import {CityStore} from "../data/city-store";
+import {AppStore} from "../data/city-store";
 import {deleteCity, reloadCity} from "../actions/city-list.actions";
 import {CityStoreComponent} from "../custom-typings/city-store-component";
 import {Unsubscribe} from "redux/index";
 import {Link} from "react-router";
 
 export class CityList extends CityStoreComponent<{}, {}> {
-    private store : CityStore;
+    private store : AppStore;
     private unsubscribe : Unsubscribe;
 
     componentWillMount() {
@@ -25,7 +25,7 @@ export class CityList extends CityStoreComponent<{}, {}> {
     }
 
     render() : JSX.Element {
-        const cities = this.store.getState().map(city =>
+        const cities = this.store.getState().cities.map(city =>
             <CityItem
                 key={city.id}
                 city={city}

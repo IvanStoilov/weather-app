@@ -6,13 +6,13 @@ import {Store} from "redux";
 import {AddCity} from "./AddCity";
 import {CityList} from "./CityList";
 import {ICity} from "../data/city";
-import {CityStore} from "../data/city-store";
+import {AppStore} from "../data/city-store";
 import {CityStoreComponent} from "../custom-typings/city-store-component";
 import {Link} from "react-router";
 import {Navbar} from "../components/Navbar";
 
 export class App extends CityStoreComponent<{}, {}> {
-    private store : CityStore = this.context.store;
+    private store : AppStore = this.context.store;
 
     render() : JSX.Element {
         return (
