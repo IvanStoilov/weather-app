@@ -1,5 +1,5 @@
 import {ActionsObservable, Epic} from "redux-observable";
-import {CityListAction, setCityProp} from "../actions/city-list.actions";
+import {CityListAction, setCityProp} from "../../actions/city-list.actions.ts";
 import {Observable} from "rxjs";
 
 import "rxjs/add/operator/map";

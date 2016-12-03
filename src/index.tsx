@@ -4,29 +4,29 @@ import "./stylesheets/framework7.less";
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { createStore, applyMiddleware, combineReducers } from "redux";
-import { AppStore } from "./data/city-store";
-import { Provider } from "react-redux";
-import appReducer from "./reducers/app.reducer";
-import { createEpicMiddleware } from "redux-observable";
-import { rootEpic } from "./epics";
-import { App } from "./components/App";
+import {createStore, applyMiddleware, combineReducers} from "redux";
+import {AppStore} from "./data/city-store";
+import {Provider} from "react-redux";
+import {cityListReducer} from "./components/city-list/city-list.reducer";
+import {AddCity, addCityReducer} from "./components/add-city";
+import {createEpicMiddleware} from "redux-observable";
+import {cityListEpics} from "./components/city-list";
+import {App} from "./components/app.component";
 import {Router, Route, browserHistory, IndexRoute} from 'react-router';
-import {CityList} from "./components/CityList";
-import {AddCity} from "./components/AddCity";
+import {CityList} from "./components/city-list/city-list.component";
 import {CityCache} from "./data/city-cache";
 
-const epicMiddleware = createEpicMiddleware(rootEpic);
+const epicMiddleware = createEpicMiddleware(cityListEpics);
+
 const reducers = combineReducers({
-    cities: appReducer
+    cities: cityListReducer,
+    addCity: addCityReducer
 });
 const initialState = {
     cities: CityCache.getAllCities()
 };
 
 const store : AppStore = createStore(reducers, initialState, applyMiddleware(epicMiddleware)) as AppStore;
-
-store.subscribe(() => CityCache.setCities(store.getState().cities));
 
 function render() {
     ReactDOM.render(

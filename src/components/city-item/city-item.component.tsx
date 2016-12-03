@@ -1,6 +1,6 @@
 import * as React from "react";
-import {ICity} from "../data/city";
-import {Forecast, Forecastday} from "../custom-typings/forecast";
+import {ICity} from "../../data/city";
+import {Forecast, Forecastday} from "../../custom-typings/forecast";
 import * as moment from "moment";
 
 interface ICityItemProps {

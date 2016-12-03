@@ -1,12 +1,12 @@
-import {ICity, CityData} from "../data/city";
-import {CityList} from "../data/city-list";
-import {CityListAction} from "../actions/city-list.actions"
+import {ICity, CityData} from "../../data/city";
+import {CityList} from "../../data/city-list";
+import {CityListAction} from "../../actions/city-list.actions.ts"
 import {List, Record} from "immutable";
 import {Reducer} from "redux";
 
 const INITIAL_LIST = List<ICity>();
 
-const reducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: CityListAction): CityList => {
+export const cityListReducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: CityListAction): CityList => {
     console.log(action)
     switch (action.type) {
         case 'ADD_CITY':
@@ -52,4 +52,3 @@ const reducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: Cit
     }
 };
 
-export default reducer;
