@@ -17,16 +17,18 @@ const mapStateToProps = (state : AppStoreState) : IAddCityState => ({
     cityName: state.addCity.cityName
 });
 
-const mapDispatchToProps = (dispatch: Function, ownProps: IAddCityState) : IAddCityEvents => ({
+const mapDispatchToProps = (dispatch: Function, ownProps: any) : IAddCityEvents => ({
     onChange: (event : KeyboardEvent) => {
         dispatch(changeCityName((event.target as HTMLInputElement).value));
     },
-    onAdd: (event: Event) => {
+    onAdd: (event: Event, cityName : string) => {
         event.preventDefault(); // prevent the form from submitting
 
-        if (ownProps.cityName !== '') {
-            dispatch(addCity(ownProps.cityName));
+        if (cityName !== '') {
+            dispatch(addCity(cityName));
             dispatch(changeCityName(''));
+
+            ownProps.router.replace('/');
         }
     }
 });
@@ -37,7 +39,7 @@ export function AddCityComponent(props: IAddCityProps) {
             <div className="content-block-title">
                 <label htmlFor="cityName">Enter a city:</label>
             </div>
-            <form className="list-block" onSubmit={event => props.onAdd(event)}>
+            <form className="list-block" onSubmit={event => props.onAdd(event, props.cityName)}>
                 <ul>
                     <li>
                         <div className="item-content">
