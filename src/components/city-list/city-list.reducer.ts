@@ -7,7 +7,6 @@ import {Reducer} from "redux";
 const INITIAL_LIST = List<ICity>();
 
 export const cityListReducer : Reducer<CityList> = (state: CityList = INITIAL_LIST, action: CityListAction): CityList => {
-    console.log(action)
     switch (action.type) {
         case 'ADD_CITY':
             return state.push(action.city);

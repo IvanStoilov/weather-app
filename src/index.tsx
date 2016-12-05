@@ -4,19 +4,24 @@ import "./stylesheets/framework7.less";
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 import {createStore, applyMiddleware, combineReducers} from "redux";
-import {AppStore} from "./data/city-store";
 import {Provider} from "react-redux";
+import {createEpicMiddleware, combineEpics} from "redux-observable";
+import {AppStore} from "./data/city-store";
 import {cityListReducer} from "./components/city-list/city-list.reducer";
-import {AddCity, addCityReducer} from "./components/add-city";
-import {createEpicMiddleware} from "redux-observable";
+import {AddCity, addCityReducer, addCityEpics} from "./components/add-city";
 import {cityListEpics} from "./components/city-list";
 import {App} from "./components/app.component";
-import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 import {CityList} from "./components/city-list/city-list.component";
 import {CityCache} from "./data/city-cache";
+import middleware from "./middleware";
 
-const epicMiddleware = createEpicMiddleware(cityListEpics);
+const epicMiddleware = createEpicMiddleware(combineEpics(...[
+    ...cityListEpics,
+    ...addCityEpics,
+    ...middleware
+]));
 
 const reducers = combineReducers({
     cities: cityListReducer,
