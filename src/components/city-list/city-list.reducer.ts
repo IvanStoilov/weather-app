@@ -23,30 +23,6 @@ export const cityListReducer : Reducer<CityList> = (state: CityList = INITIAL_LI
 
                 return city;
             }) as CityList;
-
-        case 'RELOAD_CITY_INIT': 
-            return state.map((city: ICity) => {
-                if (city.id === action.city.id) {
-                    return city.set('isFetching', true);
-                }
-
-                return city;
-            }) as CityList;
-            
-        case 'RELOAD_CITY_DONE': 
-            return state.map((city: ICity) => {
-                if (city.id === action.city.id) {
-                    return city
-                        .set('isFetching', false)
-                        .set('weather', {
-                            forecast: action.response,
-                            updatedAt: new Date().toISOString()
-                        });
-                }
-
-                return city;
-            }) as CityList;
-
         default:
             return state;
     }

@@ -13,8 +13,8 @@ interface ICityListState {
 }
 
 interface ICityListEvents {
-    onDeleteCity: Function;
-    onReload: Function;
+    deleteCity: Function;
+    reloadCity: Function;
 }
 
 interface CityListProps extends ICityListState, ICityListEvents {
