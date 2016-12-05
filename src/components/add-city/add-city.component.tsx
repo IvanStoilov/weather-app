@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import {addCity} from "../city-list/city-list.actions.ts";
 import {connect} from "react-redux";
 import {AppStoreState} from "../../data/city-store";
@@ -33,35 +34,42 @@ const mapDispatchToProps = (dispatch: Function, ownProps: any) : IAddCityEvents 
     }
 });
 
-export function AddCityComponent(props: IAddCityProps) {
-    return (
-        <div>
-            <div className="content-block-title">
-                <label htmlFor="cityName">Enter a city:</label>
-            </div>
-            <form className="list-block" onSubmit={event => props.onAdd(event, props.cityName)}>
-                <ul>
-                    <li>
-                        <div className="item-content">
-                            <div className="item-inner">
-                                <div className="item-input">
-                                    <input
-                                        type="text"
-                                        id="cityName"
-                                        value={props.cityName}
-                                        onChange={event => props.onChange(event)} />
+export class AddCityComponent extends React.Component<IAddCityProps, {}> {
+    componentDidMount() {
+        (ReactDOM.findDOMNode(this.refs['nameInput']) as HTMLInputElement).focus();
+    }
+
+    render() : JSX.Element {
+        return (
+            <div>
+                <div className="content-block-title">
+                    <label htmlFor="cityName">Enter a city:</label>
+                </div>
+                <form className="list-block" onSubmit={event => this.props.onAdd(event, this.props.cityName)}>
+                    <ul>
+                        <li>
+                            <div className="item-content">
+                                <div className="item-inner">
+                                    <div className="item-input">
+                                        <input
+                                            ref="nameInput"
+                                            type="text"
+                                            id="cityName"
+                                            value={this.props.cityName}
+                                            onChange={event => this.props.onChange(event)} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
 
-                <p className="content-block">
-                    <button className="button button-fill" type="submit">Add city</button>
-                </p>
-            </form>
-        </div>
-    );
+                    <p className="content-block">
+                        <button className="button button-fill" type="submit">Add city</button>
+                    </p>
+                </form>
+            </div>
+        );
+    }
 }
 
 export const AddCity = connect(mapStateToProps, mapDispatchToProps)(AddCityComponent);
