@@ -1,10 +1,10 @@
-import {TypedAction} from "../../actions/city-list.actions";
+import {ITypedAction} from "../city-list/city-list.actions.ts";
 
 export class AddCityActionTypes {
     static CHANGE_NAME: string = 'add-city/CHANGE_NAME';
 }
 
-export interface IAddCityAction extends TypedAction<string> {
+export interface IAddCityAction extends ITypedAction<string> {
     cityName: string;
 }
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {addCity} from "../../actions/city-list.actions.ts";
+import {addCity} from "../city-list/city-list.actions.ts";
 import {connect} from "react-redux";
 import {AppStoreState} from "../../data/city-store";
 import {IAddCityState} from "./add-city.reducer";

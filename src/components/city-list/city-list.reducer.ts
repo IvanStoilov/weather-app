@@ -1,6 +1,6 @@
 import {ICity, CityData} from "../../data/city";
 import {CityList} from "../../data/city-list";
-import {CityListAction} from "../../actions/city-list.actions.ts"
+import {CityListAction} from "./city-list.actions.ts"
 import {List, Record} from "immutable";
 import {Reducer} from "redux";
 

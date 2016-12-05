@@ -1,4 +1,4 @@
-export interface Location {
+export interface IForecastLocation {
     name: string;
     region: string;
     country: string;
@@ -9,19 +9,19 @@ export interface Location {
     localtime: string;
 }
 
-export interface WeatherCondition {
+export interface IWeatherCondition {
     text: string;
     icon: string;
     code: number;
 }
 
-export interface CurrentForecastCondition {
+export interface ICurrentForecastCondition {
     last_updated_epoch: number;
     last_updated: string;
     temp_c: number;
     temp_f: number;
     is_day: number;
-    condition: WeatherCondition;
+    condition: IWeatherCondition;
     wind_mph: number;
     wind_kph: number;
     wind_degree: number;
@@ -36,7 +36,7 @@ export interface CurrentForecastCondition {
     feelslike_f: number;
 }
 
-export interface Day {
+export interface IForecastSingleDay {
     maxtemp_c: number;
     maxtemp_f: number;
     mintemp_c: number;
@@ -47,23 +47,23 @@ export interface Day {
     maxwind_kph: number;
     totalprecip_mm: number;
     totalprecip_in: number;
-    condition: WeatherCondition;
+    condition: IWeatherCondition;
 }
 
-export interface Astro {
+export interface IForecastAstro {
     sunrise: string;
     sunset: string;
     moonrise: string;
     moonset: string;
 }
 
-export interface Hour {
+export interface IForecastHour {
     time_epoch: number;
     time: string;
     temp_c: number;
     temp_f: number;
     is_day: number;
-    condition: WeatherCondition;
+    condition: IWeatherCondition;
     wind_mph: number;
     wind_kph: number;
     wind_degree: number;
@@ -86,20 +86,20 @@ export interface Hour {
     will_it_snow: number;
 }
 
-export interface Forecastday {
+export interface IForecastDay {
     date: string;
     date_epoch: number;
-    day: Day;
-    astro: Astro;
-    hour: Hour[];
+    day: IForecastSingleDay;
+    astro: IForecastAstro;
+    hour: IForecastHour[];
 }
 
-export interface ForecastFuture {
-    forecastday: Forecastday[];
+export interface IForecastFuture {
+    forecastday: IForecastDay[];
 }
 
-export interface Forecast {
-    location: Location;
-    current: CurrentForecastCondition;
-    forecast: ForecastFuture;
+export interface IForecast {
+    location: IForecastLocation;
+    current: ICurrentForecastCondition;
+    forecast: IForecastFuture;
 }

@@ -466,7 +466,7 @@ namespace ReactRouter {
 		 *     }
 		 *   }
 		 * }
-		 * @param {Location} location
+		 * @param {IForecastLocation} location
 		 * @param {(err: Error, routes: PlainRoute[]) => void} callback
 		 */
 		getChildRoutes?(location: Location, callback: (err: Error, routes: PlainRoute[]) => void): void;
@@ -499,7 +499,7 @@ namespace ReactRouter {
 		 *     cb(null, myIndexRoute)
 		 *   }
 		 * }
-		 * @param {Location} location
+		 * @param {IForecastLocation} location
 		 * @param {(err: Error, route: PlainRoute) => void} callback
 		 */
 
@@ -610,7 +610,7 @@ namespace ReactRouter {
 		 *   cb(null, Course)
 		 * }} />
 		 *
-		 * @param {Location} location
+		 * @param {IForecastLocation} location
 		 * @param {(error: Error, component: Component<any>) => void} callback
 		 */
 		getComponent?(location: Location, callback: (error: Error, component: ReactComponent<any>) => void): void;
@@ -623,7 +623,7 @@ namespace ReactRouter {
 		 *   // do asynchronous stuff to find the components
 		 *   cb(null, {sidebar: CourseSidebar, content: Course})
 		 * }} />
-		 * @param {Location} location
+		 * @param {IForecastLocation} location
 		 * @param {(error: Error, components: { [name: string]: Component<any> }) => void} callback
 		 */
 		getComponents?(location: Location, callback: (error: Error, components: { [name: string]: ReactComponent<any> }) => void): void;
@@ -757,7 +757,7 @@ namespace ReactRouter {
 		/**
 		 * The current location.
 		 *
-		 * @type {Location}
+		 * @type {IForecastLocation}
 		 */
 		location?: Location;
 

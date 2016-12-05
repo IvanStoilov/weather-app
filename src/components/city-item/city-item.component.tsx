@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ICity} from "../../data/city";
-import {Forecast, Forecastday} from "../../custom-typings/forecast";
+import {IForecast, IForecastDay} from "../../custom-typings/forecast";
 import {Spinner} from "../spinner/spinner.component";
 import * as moment from "moment";
 
@@ -70,11 +70,11 @@ export class CityItem extends React.Component<ICityItemProps, {}> {
         return null;
     }
 
-    private getForecastDays(forecastDays: Forecastday[]) : JSX.Element[] {
+    private getForecastDays(forecastDays: IForecastDay[]) : JSX.Element[] {
         return forecastDays.map(day => this.getForecastDay(day));
     }
 
-    private getForecastDay(forecastDay: Forecastday) : JSX.Element {
+    private getForecastDay(forecastDay: IForecastDay) : JSX.Element {
         return (
             <div key={forecastDay.date} className="forecast-day col-20">
                 {moment(forecastDay.date).format('MMM D')}
@@ -100,7 +100,7 @@ export class CityItem extends React.Component<ICityItemProps, {}> {
         return this.getForecast() ? `${Math.round(this.getForecast().current.temp_c)} °` : null;
     }
 
-    private getForecast() : Forecast {
+    private getForecast() : IForecast {
         return this.props.city.weather && this.props.city.weather.forecast;
     }
 }

@@ -1,9 +1,10 @@
 import * as React from "react";
 import {CityItem} from "../city-item/city-item.component";
 import {ICity} from "../../data/city";
-import {deleteCity, reloadCity} from "../../actions/city-list.actions.ts";
+import {CityListActions} from ".";
 import {Link} from "react-router";
 import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 import {AppStoreState} from "../../data/city-store";
 import {CityList as CityListCollection} from "../../data/city-list";
 
@@ -23,18 +24,15 @@ const mapStateToProps = (state : AppStoreState) : ICityListState => ({
     cities: state.cities
 });
 
-const mapDispatchToProps = (dispatch : (action: any) => any) => ({
-    onDeleteCity: (city: ICity) => dispatch(deleteCity(city)),
-    onReload: (city: ICity) => dispatch(reloadCity(city))
-});
+const mapDispatchToProps = (dispatch : (action: any) => any) => bindActionCreators(CityListActions, dispatch);
 
 function CityListElement(props : CityListProps) {
     const cities = props.cities.map((city : ICity) =>
         <CityItem
             key={city.id}
             city={city}
-            onDelete={() => props.onDeleteCity(city)}
-            onReload={() => props.onReload(city)} />
+            onDelete={() => props.deleteCity(city)}
+            onReload={() => props.reloadCity(city)} />
     ).toJS();
 
     return (

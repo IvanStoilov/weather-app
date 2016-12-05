@@ -1,5 +1,5 @@
 import {ActionsObservable, Epic} from "redux-observable";
-import {CityListAction, reloadCity, fetchCityImage} from "../../actions/city-list.actions.ts";
+import {CityListAction, CityListActions} from ".";
 
 import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/do";
@@ -8,7 +8,7 @@ export const addCityEpic : Epic<CityListAction> = (action$ : ActionsObservable<C
   return action$
       .ofType('ADD_CITY')
       .flatMap(action => [
-          // fetchCityImage(action.city),
-          reloadCity(action.city)
+          // CityListActions.fetchCityImage(action.city),
+          CityListActions.reloadCity(action.city)
       ]);
 }

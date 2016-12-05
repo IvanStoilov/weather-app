@@ -1,5 +1,5 @@
 import {Map, Record} from "immutable";
-import {Forecast} from "../custom-typings/forecast";
+import {IForecast} from "../custom-typings/forecast";
 
 export interface CityData {
   id: string;
@@ -7,7 +7,7 @@ export interface CityData {
   isFetching: boolean;
   imageUrl?: string;
   weather: {
-    forecast: Forecast;
+    forecast: IForecast;
     updatedAt: string;
   }
 }
