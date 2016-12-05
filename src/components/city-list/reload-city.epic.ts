@@ -1,5 +1,5 @@
 import {ActionsObservable, Epic} from "redux-observable";
-import {CityListAction, ReloadCityAction, reloadCityDone} from "../../actions/city-list.actions.ts";
+import {CityListAction, ReloadCityAction, reloadCityDone, deleteCity} from "../../actions/city-list.actions.ts";
 import {Observable} from "rxjs";
 import {Forecast} from "../../custom-typings/forecast";
 
@@ -16,6 +16,10 @@ export const reloadCityEpic : Epic<CityListAction> = (action$ : ActionsObservabl
             return Observable.fromPromise(fetch(url))
                 .delay(1250)
                 .switchMap(result => result.json())
-                .map((result: Forecast) => reloadCityDone(action.city, result))
+                .map((result: Forecast) => {
+                    return (result['error'])
+                        ? deleteCity(action.city)
+                        : reloadCityDone(action.city, result);
+                })
         });
 }
