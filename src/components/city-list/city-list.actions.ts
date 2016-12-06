@@ -18,8 +18,20 @@ export const CityListActionTypes = {
   FETCH_CITY_IMAGE: 'FETCH_CITY_IMAGE',
   RELOAD_CITY: 'RELOAD_CITY',
   SET_CITY_PROP: 'SET_CITY_PROP',
-  PERSIST_CITY_LIST: 'PERSIST_CITY_LIST'
+  PERSIST_CITY_LIST: 'PERSIST_CITY_LIST',
+  RELOAD_ALL: 'RELOAD_ALL',
 };
+
+function cityActionFactory(type : string) {
+  return (city: ICity) => ({
+    type,
+    city
+  });
+}
+
+export const deleteCity = cityActionFactory(CityListActionTypes.DELETE_CITY);
+export const reloadCity = cityActionFactory(CityListActionTypes.RELOAD_CITY);
+export const fetchCityImage = cityActionFactory(CityListActionTypes.FETCH_CITY_IMAGE);
 
 export function addCity(cityName: string) : ICityListAction {
   const newId = (Math.random() + '').substr(2);
@@ -53,13 +65,8 @@ export function persistCityList() : Action {
   }
 }
 
-function cityActionFactory(type : string) {
-  return (city: ICity) => ({
-    type,
-    city
-  });
+export function reloadAll() : Action {
+  return {
+    type: CityListActionTypes.RELOAD_ALL
+  }
 }
-
-export const deleteCity = cityActionFactory(CityListActionTypes.DELETE_CITY);
-export const reloadCity = cityActionFactory(CityListActionTypes.RELOAD_CITY);
-export const fetchCityImage = cityActionFactory(CityListActionTypes.FETCH_CITY_IMAGE);
