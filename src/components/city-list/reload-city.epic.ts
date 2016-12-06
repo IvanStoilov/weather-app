@@ -7,14 +7,13 @@ import "rxjs/add/observable/of";
 import {CityListActions} from ".";
 import {ActionsObservable, Epic} from "redux-observable";
 import {IForecast} from "../../custom-typings/forecast";
-import {CityListAction} from "./city-list.actions";
+import {ICityListAction, CityListActionTypes} from "./city-list.actions";
 import {Observable} from "rxjs";
-import {IWeatherApiErrorResponse} from "../../custom-typings/weather-api-error";
 
-export const reloadCityEpic : Epic<CityListAction> = (action$ : ActionsObservable<CityListAction>) => {
+export const reloadCityEpic : Epic<ICityListAction> = (action$ : ActionsObservable<ICityListAction>) => {
     return action$
-        .ofType('RELOAD_CITY_INIT')
-        .switchMap((action: CityListAction) => {
+        .ofType(CityListActionTypes.RELOAD_CITY)
+        .switchMap((action: ICityListAction) => {
             return Observable.concat(
                 Observable.of(CityListActions.setCityProp(action.city, 'isFetching', true)),
                 fetchForecast(action.city.name)
@@ -37,7 +36,7 @@ export const reloadCityEpic : Epic<CityListAction> = (action$ : ActionsObservabl
             });
     }
 
-    function unPackApiCallResponse(result : any, action : CityListAction) : Observable<IForecast> {
+    function unPackApiCallResponse(result : any, action : ICityListAction) : Observable<IForecast> {
         return Observable
             .fromPromise(result.json())
             .map((resultObj : any) => {
@@ -51,7 +50,7 @@ export const reloadCityEpic : Epic<CityListAction> = (action$ : ActionsObservabl
             });
     }
 
-    function updateCityForecast(forecast : IForecast, action : CityListAction) : CityListAction[] {
+    function updateCityForecast(forecast : IForecast, action : ICityListAction) : ICityListAction[] {
         return [
             CityListActions.setCityProp(action.city, 'isFetching', false),
             CityListActions.setCityProp(action.city, 'weather', {

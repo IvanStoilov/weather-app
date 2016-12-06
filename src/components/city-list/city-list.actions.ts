@@ -1,76 +1,65 @@
 import {ICity, City} from "../../data/city";
-import {CityList} from "../../data/city-list";
 import {Action} from "redux";
 
 // Declaration
 
-interface ITypedAction<T> {
-  type: T;
-}
-
-interface ICityAction<T> extends ITypedAction<T> {
+export interface ICityListAction extends Action {
   city: ICity;
-}
+  prop?: string;
+  value?: any;
 
-export interface IAddCityAction extends ICityAction<'ADD_CITY'> {}
-export interface IDeleteCityAction extends ICityAction<'DELETE_CITY'> {}
-export interface IFetchCityImageAction extends ICityAction<'FETCH_CITY_IMAGE'> {}
-export interface IFetchCityImageActionDone extends ICityAction<'FETCH_CITY_IMAGE_DONE'> {}
-export interface IReloadCityAction extends ICityAction<'RELOAD_CITY_INIT'> {}
-export interface ISetCityPropAction extends ICityAction<'SET_CITY_PROP'> {
-  prop: string;
-  value: any;
-}
-
-export type CityListAction = 
-  IAddCityAction|IDeleteCityAction|ISetCityPropAction|IReloadCityAction|IFetchCityImageAction;
-
-export interface IAction<T> extends Action {
-  type: string;
-  payload: T;
 }
 
 // Implementation
 
-export function addCity(cityName: string) : IAddCityAction {
+export const CityListActionTypes = {
+  ADD_CITY: 'ADD_CITY',
+  DELETE_CITY: 'DELETE_CITY',
+  FETCH_CITY_IMAGE: 'FETCH_CITY_IMAGE',
+  RELOAD_CITY: 'RELOAD_CITY',
+  SET_CITY_PROP: 'SET_CITY_PROP',
+  PERSIST_CITY_LIST: 'PERSIST_CITY_LIST'
+};
+
+export function addCity(cityName: string) : ICityListAction {
   const newId = (Math.random() + '').substr(2);
-  
+
   const city = City.create({
     id: `city-${newId}`,
-    name: cityName, 
+    name: cityName,
     isFetching: false,
     weather: null,
     imageUrl: null
   });
 
   return {
-    type: 'ADD_CITY',
+    type: CityListActionTypes.ADD_CITY,
     city
   }
 }
 
-export function setCityProp(city: ICity, prop: string, value: any) : ISetCityPropAction {
+export function setCityProp(city: ICity, prop: string, value: any) : ICityListAction {
   return {
-    type: 'SET_CITY_PROP',
+    type: CityListActionTypes.SET_CITY_PROP,
     city,
     prop,
     value
   }
 }
 
-export function persistCityList(cityList: CityList) : Action {
+export function persistCityList() : Action {
   return {
-    type: 'PERSIST_CITY_LIST',
+    type: CityListActionTypes.PERSIST_CITY_LIST,
   }
 }
 
 function cityActionFactory(type : string) {
   return (city: ICity) => ({
-    type, 
+    type,
     city
   });
 }
 
-export const deleteCity = cityActionFactory('DELETE_CITY');
-export const reloadCity = cityActionFactory('RELOAD_CITY_INIT');
-export const fetchCityImage = cityActionFactory('FETCH_CITY_IMAGE');
+export const deleteCity = cityActionFactory(CityListActionTypes.DELETE_CITY);
+export const reloadCity = cityActionFactory(CityListActionTypes.RELOAD_CITY);
+export const fetchCityImage = cityActionFactory(CityListActionTypes.FETCH_CITY_IMAGE);
