@@ -1,4 +1,6 @@
 import {ICity, City} from "../../data/city";
+import {CityList} from "../../data/city-list";
+import {Action} from "redux";
 
 // Declaration
 
@@ -22,6 +24,11 @@ export interface ISetCityPropAction extends ICityAction<'SET_CITY_PROP'> {
 
 export type CityListAction = 
   IAddCityAction|IDeleteCityAction|ISetCityPropAction|IReloadCityAction|IFetchCityImageAction;
+
+export interface IAction<T> extends Action {
+  type: string;
+  payload: T;
+}
 
 // Implementation
 
@@ -48,6 +55,12 @@ export function setCityProp(city: ICity, prop: string, value: any) : ISetCityPro
     city,
     prop,
     value
+  }
+}
+
+export function persistCityList(cityList: CityList) : Action {
+  return {
+    type: 'PERSIST_CITY_LIST',
   }
 }
 

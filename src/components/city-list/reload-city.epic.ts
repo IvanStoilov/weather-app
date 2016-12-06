@@ -57,7 +57,8 @@ export const reloadCityEpic : Epic<CityListAction> = (action$ : ActionsObservabl
             CityListActions.setCityProp(action.city, 'weather', {
                 forecast: forecast,
                 updatedAt: new Date().toISOString()
-            })
+            }),
+            CityListActions.persistCityList()
         ];
     }
 }
