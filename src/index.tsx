@@ -10,6 +10,7 @@ import {Provider} from "react-redux";
 import {createEpicMiddleware, combineEpics} from "redux-observable";
 import {AppStore} from "./data/city-store";
 import {cityListReducer} from "./components/city-list/city-list.reducer";
+import {alertsReducer, alertsEpics} from "./components/alerts";
 import {AddCity, addCityReducer, addCityEpics} from "./components/add-city";
 import {cityListEpics} from "./components/city-list";
 import {App} from "./components/app.component";
@@ -18,14 +19,16 @@ import {CityCache} from "./data/city-cache";
 import middleware from "./middleware";
 
 const epicMiddleware = createEpicMiddleware(combineEpics(...[
+    ...middleware,
     ...cityListEpics,
     ...addCityEpics,
-    ...middleware
+    ...alertsEpics
 ]));
 
 const reducers = combineReducers({
     cities: cityListReducer,
-    addCity: addCityReducer
+    addCity: addCityReducer,
+    alerts: alertsReducer
 });
 const initialState = {
     cities: CityCache.getAllCities()

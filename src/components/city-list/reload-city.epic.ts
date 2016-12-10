@@ -8,6 +8,7 @@ import {CityListActions} from ".";
 import {ActionsObservable, Epic} from "redux-observable";
 import {IForecast} from "../../custom-typings/forecast";
 import {ICityListAction, CityListActionTypes} from "./city-list.actions";
+import {AlertsActions} from "../alerts";
 import {Observable} from "rxjs";
 import {Action} from "redux";
 
@@ -20,7 +21,7 @@ export const reloadCityEpic : Epic<ICityListAction> = (action$ : ActionsObservab
                 fetchForecast(action.city.name)
                     .flatMap((result : any) => unPackApiCallResponse(result, action))
                     .flatMap((forecast: IForecast) => updateCityForecast(forecast, action))
-                    .catch(error => Observable.of(CityListActions.deleteCity(action.city)))
+                    .catch(error => onFail(error, action))
             )
         })
 
@@ -59,6 +60,13 @@ export const reloadCityEpic : Epic<ICityListAction> = (action$ : ActionsObservab
                 updatedAt: new Date().toISOString()
             }),
             CityListActions.persistCityList()
+        ];
+    }
+
+    function onFail(error : any, action : ICityListAction) : Action[] {
+        return [
+            CityListActions.deleteCity(action.city),
+            AlertsActions.showAlert(`Loading forecast for ${action.city.name} failed!`, 'error')
         ];
     }
 }

@@ -24,7 +24,7 @@ const mapStateToProps = (state : AppStoreState) : ICityListState => ({
     cities: state.cities
 });
 
-const mapDispatchToProps = (dispatch : (action: any) => any) => bindActionCreators(CityListActions, dispatch);
+const mapDispatchToProps = (dispatch : any) => bindActionCreators(CityListActions, dispatch);
 
 function CityListElement(props : CityListProps) {
     const cities = props.cities.map((city : ICity) =>
